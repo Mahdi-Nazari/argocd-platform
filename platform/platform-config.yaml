@@ -5,12 +5,14 @@ metadata:
   name: platform-config
   namespace: argocd
 spec:
-  project: default
+  project: platform
 
   source:
     repoURL: https://github.com/Mahdi-Nazari/argocd-platform.git
     targetRevision: main
-    path: platform
+    path: .
+    directory:
+      recurse: true
 
   destination:
     server: https://kubernetes.default.svc
