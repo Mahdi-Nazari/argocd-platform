@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   admin.enabled: "true"
+  users.anonymous.enabled: "false"
 
   accounts.sre-user: login
   accounts.devops-user: login
