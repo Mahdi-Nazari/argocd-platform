@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: platform
+  namespace: argocd
+spec:
+  description: Argo CD platform configuration
+
+  sourceRepos:
+    - https://github.com/Mahdi-Nazari/argocd-platform.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: argocd
+
+  clusterResourceWhitelist: []
+
+  namespaceResourceWhitelist:
+    - group: ""
+      kind: ConfigMap
+    - group: argoproj.io
+      kind: AppProject
+    - group: argoproj.io
+      kind: Application
