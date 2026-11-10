@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: devops
+  namespace: argocd
+spec:
+  description: Applications managed by DevOps
+
+  sourceRepos:
+    - https://github.com/Mahdi-Nazari/devops-applications.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: devops-lab
+
+  clusterResourceWhitelist: []
+
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: ReplicaSet
+    - group: ""
+      kind: Pod
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ConfigMap

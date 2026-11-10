@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: sre
+  namespace: argocd
+spec:
+  description: Applications managed by SRE
+
+  sourceRepos:
+    - https://github.com/Mahdi-Nazari/sre-applications.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: sre-lab
+
+  clusterResourceWhitelist: []
+
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: ReplicaSet
+    - group: ""
+      kind: Pod
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ConfigMap
