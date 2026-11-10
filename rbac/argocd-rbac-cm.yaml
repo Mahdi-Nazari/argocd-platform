@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: argocd
+data:
+  policy.default: role:authenticated
+
+  policy.csv: |
+    # Default authenticated role: no additional permissions
+
+    # SRE
+    p, role:sre, applications, get, sre/*, allow
+    p, role:sre, applications, sync, sre/*, allow
+    p, role:sre, logs, get, sre/*, allow
+    p, role:sre, projects, get, sre, allow
+    g, sre-user, role:sre
+
+    # DevOps
+    p, role:devops, applications, get, devops/*, allow
+    p, role:devops, applications, sync, devops/*, allow
+    p, role:devops, logs, get, devops/*, allow
+    p, role:devops, projects, get, devops, allow
+    g, devops-user, role:devops
+
+  policy.matchMode: glob

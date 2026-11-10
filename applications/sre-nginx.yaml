@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sre-nginx
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: sre
+
+  source:
+    repoURL: https://github.com/Mahdi-Nazari/sre-applications.git
+    targetRevision: main
+    path: workloads/nginx
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sre-lab
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
